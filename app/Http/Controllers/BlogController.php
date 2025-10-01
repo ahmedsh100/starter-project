@@ -46,6 +46,22 @@ class BlogController extends Controller
     public function store(StoreBlogRequest $request)
     {
         $data = $request->validated();
+        // image uploading
+        // 1- get image
+        $image = $request->image;
+        // 2- change it's current name
+        $newImageName = time() . '-' . $image->getClientOriginalName();
+        // 3- move image to my project
+        $image->storeAs('blogs', $newImageName, 'public');
+        // 4- save new name to database record
+        $data['image' ] = $newImageName;
+        $data['user_id'] = Auth :: user()->id;
+
+        // create new blog record
+        Blog::create($data);
+
+        return back()->with('BlogStatus', 'Your blog created successfully');
+
     }
 
     /**

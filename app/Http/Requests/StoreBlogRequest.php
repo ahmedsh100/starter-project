@@ -23,7 +23,7 @@ class StoreBlogRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'nullable',
+            'image' => 'required|mimes:png,jpg,jpeg,webp,svg|max:2048',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required',
         ];
