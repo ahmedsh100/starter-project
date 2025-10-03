@@ -27,10 +27,7 @@ return view('theme.category', compact('blogs', 'categoryName' ));
 {
     return view('theme.contact');
 }
-    public function singleBlog()
-    {
-        return view('theme.single-blog');
-    }
+
     public function login()
     {
         return view('theme.login');

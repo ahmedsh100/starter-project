@@ -23,7 +23,7 @@ Route::controller(ThemeController::class)->name('theme.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/category/{id}', 'category')->name('category');
     Route::get('/contact', 'contact')->name('contact');
-    Route::get('/single-blog', 'singleBlog')->name('singleBlog');
+    // Route::get('/single-blog', 'singleBlog')->name('singleBlog');
 
 });
 
