@@ -36,7 +36,8 @@ Route::post('/subscribe/register',[SubscriberController::class,'store'])->name('
 //Contact store route
 Route::post('/contact/store',[ContactController::class,'store'])->name('contact.store');
 
-//Blog stores
+//Blog Route
+Route::get('/my-blogs',[BlogController::class,'myBlogs'])->name('blogs.my-blogs');
 Route::resource('blogs',BlogController::class);
 
 
