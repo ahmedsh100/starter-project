@@ -26,7 +26,10 @@
                                     {{$blog->name}}
                                     </a>
                                   </td>
-                                  <td></td>
+                                  <td>
+                                    <a href="{{route('blogs.edit',['blog'=>$blog])}}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-danger mr-2">Delete</a>
+                                  </td>
                                 </tr>              
                                 @endforeach
                             @endif
