@@ -80,8 +80,13 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        $categories = Category::get();
-        return view("theme.blogs.edit", compact("categories","blog"));
+        if($blog->user_id == Auth::user()->id){
+
+            $categories = Category::get();
+            return view("theme.blogs.edit", compact("categories","blog"));
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -89,6 +94,8 @@ class BlogController extends Controller
      */
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
+        if($blog->user_id == Auth::user()->id){
+
         $data = $request->validated();
         if( $request->hasFile('image')){
             
@@ -109,7 +116,8 @@ class BlogController extends Controller
         $blog->update($data);
 
         return back()->with('BlogUpdateStatus', 'Your blog updated successfully');
-
+    }
+    abort(403);
     }
 
     /**
