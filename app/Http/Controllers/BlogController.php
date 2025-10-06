@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBlogRequest;
+use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -85,9 +87,29 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blog $blog)
+    public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        //
+        $data = $request->validated();
+        if( $request->hasFile('image')){
+            
+            //0 - delete old image
+            Storage::delete("public/blogs/$blog->image");
+            // image uploading
+            // 1- get image
+            $image = $request->image;
+            // 2- change it's current name
+            $newImageName = time() . '-' . $image->getClientOriginalName();
+            // 3- move image to my project
+            $image->storeAs('blogs', $newImageName, 'public');
+            // 4- save new name to database record
+            $data['image' ] = $newImageName;
+        }
+
+        // create new blog record
+        $blog->update($data);
+
+        return back()->with('BlogUpdateStatus', 'Your blog updated successfully');
+
     }
 
     /**
