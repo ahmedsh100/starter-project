@@ -8,6 +8,11 @@
     <section class="section-margin--small section-margin">
         <div class="container">
             <div class="row">
+                @if (session('BlogDeleteStatus'))
+                <div class="alert alert-success">
+                    {{ session('BlogDeleteStatus') }}
+                </div>
+            @endif
                 <div class="col-12">
                     <table class="table">
                         <thead>
@@ -28,7 +33,13 @@
                                   </td>
                                   <td>
                                     <a href="{{route('blogs.edit',['blog'=>$blog])}}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-danger mr-2">Delete</a>
+
+                                    <form action="{{ route('blogs.destroy', ['blog' => $blog]) }}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this blog?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger mr-2">Delete</button>
+                                    </form>
+                                    
                                   </td>
                                 </tr>              
                                 @endforeach
@@ -51,6 +62,8 @@
             var fileName = e.target.files[0] ? e.target.files[0].name : 'Choose blog image';
             document.querySelector('.custom-file-label').textContent = fileName;
         });
+
+
     </script>
 
     <style>

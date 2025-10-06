@@ -125,7 +125,17 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        if($blog->user_id == Auth::user()->id){
+
+        //delete image
+        Storage::delete("public/blogs/$blog->image");
+
+        //delete blog
+        $blog->delete();
+
+        return back()->with('BlogDeleteStatus','Your Blog Deleted');
+        }
+        abort(403);
     }
 
      /**
