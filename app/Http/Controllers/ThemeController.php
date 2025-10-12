@@ -11,9 +11,10 @@ class ThemeController extends Controller
     public function index()
     {
 
-        $blogs = Blog::paginate(1);
-
-        return view('theme.index',compact('blogs'));
+        $blogs = Blog::latest()->paginate(1);
+        $sliderBlog = Blog::latest()->take(3)->get();;
+       
+        return view('theme.index',compact(['blogs','sliderBlog']));
     }
 
     public function category($id)
