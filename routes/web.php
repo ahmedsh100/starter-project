@@ -42,7 +42,7 @@ Route::get('/my-blogs',[BlogController::class,'myBlogs'])->name('blogs.my-blogs'
 Route::resource('blogs',BlogController::class);
 
 //Comment Route
-Route::post('/comment/store',[CommentController::class,'store'])->name('comment.store');
+Route::post('/comments/store',[CommentController::class,'store'])->name('comments.store');
 
 
 
