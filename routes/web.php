@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriberController;
@@ -33,12 +34,15 @@ Route::controller(ThemeController::class)->name('theme.')->group(function () {
 Route::post('/subscribe/register',[SubscriberController::class,'store'])->name('subscribe.store');
 
 
-//Contact store route
+//Contact store Route
 Route::post('/contact/store',[ContactController::class,'store'])->name('contact.store');
 
 //Blog Route
 Route::get('/my-blogs',[BlogController::class,'myBlogs'])->name('blogs.my-blogs');
 Route::resource('blogs',BlogController::class);
+
+//Comment Route
+Route::post('/comment/store',[CommentController::class,'store'])->name('comment.store');
 
 
 
